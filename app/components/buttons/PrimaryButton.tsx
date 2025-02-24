@@ -1,16 +1,29 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, TouchableOpacity, ViewStyle } from "react-native";
+import { Typography } from "../Typography";
 
-type Props = {
+type PrimaryButtonProps = {
   text: string;
+  style?: ViewStyle;
+  onPress?: () => void;
 };
-const PrimaryButton: React.FC<Props> = ({ text }: Props) => {
+const PrimaryButton: React.FC<PrimaryButtonProps> = ({
+  text,
+  style,
+  onPress,
+  ...props
+}: PrimaryButtonProps) => {
+  const handlePress = () => {
+    onPress && onPress();
+  };
+
   return (
-    <TouchableOpacity style={styles.button} activeOpacity={0.8}>
-      <Text style={styles.text}>{text}</Text>
+    <TouchableOpacity
+      style={[styles.button, style]}
+      activeOpacity={0.8}
+      onPress={handlePress}
+      {...props}
+    >
+      <Typography style={styles.text}>{text}</Typography>
     </TouchableOpacity>
   );
 };

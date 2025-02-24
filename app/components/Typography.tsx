@@ -2,7 +2,7 @@ import { Text, TextProps, StyleSheet, TextStyle } from "react-native";
 
 type TypographyProps = TextProps & {
   style?: TextStyle;
-  weight?: "regular" | "semibold" | "bold";
+  weight?: "regular" | "medium" | "semibold" | "bold";
   size?: "sm" | "md" | "lg" | "xl" | "xxl" | number;
   headerFont?: boolean;
   children: React.ReactNode;
@@ -25,9 +25,10 @@ export const Typography: React.FC<TypographyProps> = ({
   };
 
   const fontWeightMap = {
-    regular: "InterRegular",
-    semibold: "InterSemiBold",
-    bold: "InterBold",
+    regular: "Inter_400Regular",
+    medium: "Inter_500Medium",
+    semibold: "Inter_600SemiBold",
+    bold: "Inter_700Bold",
   };
 
   return (

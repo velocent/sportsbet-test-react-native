@@ -14,6 +14,7 @@ import { Ionicons } from "@expo/vector-icons";
 import PaymentModeSwitch from "../components/PaymentModeSwitch";
 import BetModal from "../modals/BetModal";
 import { Typography } from "../components/Typography";
+import PrimaryButton from "../components/buttons/PrimaryButton";
 
 const sportsData = [
   {
@@ -100,7 +101,7 @@ export default function SportsScreen() {
         </View>
       </View>
 
-      <ScrollView style={{ flexGrow: 1 }}>
+      <ScrollView style={{ flexGrow: 1, paddingBottom: 60 }}>
         {/* Balance & Toggle Section */}
         <PaymentModeSwitch />
 
@@ -131,7 +132,8 @@ export default function SportsScreen() {
                   resizeMode="contain"
                 />
               </TouchableOpacity>
-              <Text style={styles.categoryText}>{item.name}</Text>
+              {/* <Text style={styles.categoryText}>{item.name}</Text> */}
+              <Typography size="sm" weight="medium">{item.name}</Typography>
             </View>
           )}
         />
@@ -165,10 +167,13 @@ export default function SportsScreen() {
         </View>
       </ScrollView>
 
-      {/* Open Bet Slip Button */}
-      <TouchableOpacity style={styles.betSlipButton} onPress={showModal}>
-        <Text style={styles.betSlipText}>OPEN BET SLIP (1)</Text>
-      </TouchableOpacity>
+      <View style={{ padding: 16 }}>
+        <PrimaryButton
+          text="Open Bet Slip (1)"
+          onPress={showModal}
+          // style={{ marginTop: 60 }}
+        />
+      </View>
 
       <BetModal visible={modalVisible} onClose={() => setModalVisible(false)} />
     </View>
@@ -272,18 +277,6 @@ const styles = StyleSheet.create({
   categoryIcon: {
     width: 24,
     height: 24,
-  },
-  categoryText: {
-    color: "#fff",
-    fontSize: 11,
-  },
-  betSlipButton: {
-    backgroundColor: "#FFD700",
-    padding: 16,
-    borderRadius: 8,
-    alignItems: "center",
-    // marginVertical: 16,
-    margin: 16,
   },
   betSlipText: {
     fontSize: 16,
