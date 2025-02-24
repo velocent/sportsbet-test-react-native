@@ -13,6 +13,8 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import PaymentModeSwitch from "../components/PaymentModeSwitch";
 import PrimaryButton from "../components/buttons/PrimaryButton";
 import BetItemSingle from "../components/BetItemSingle";
+import BaseModal from "./BaseModal";
+import { Typography } from "../components/Typography";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -105,7 +107,7 @@ const SecondTab = () => (
   </View>
 );
 
-const BetModal = ({
+const BetSlipModal = ({
   visible,
   onClose,
 }: {
@@ -113,7 +115,33 @@ const BetModal = ({
   onClose: () => void;
 }) => {
   return (
-    <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
+    <BaseModal visible={visible} onClose={onClose}>
+      <Typography size={20} style={{ textAlign: "center" }}>
+        BETSLIP (2)
+      </Typography>
+
+      <Tab.Navigator
+        screenOptions={{
+          tabBarStyle: { backgroundColor: "#1B1E23" },
+          tabBarActiveTintColor: "#fff",
+          tabBarIndicatorStyle: { backgroundColor: "#fff" },
+        }}
+      >
+        <Tab.Screen name="Singles" component={FirstTab} />
+        <Tab.Screen name="Parlay" component={SecondTab} />
+      </Tab.Navigator>
+      <Typography size={20} style={{ textAlign: "center" }}>
+        BETSLIP (2)
+      </Typography>
+    </BaseModal>
+  );
+  return (
+    <Modal
+      visible={visible}
+      transparent
+      animationType="slide"
+      onRequestClose={onClose}
+    >
       <TouchableWithoutFeedback onPress={onClose}>
         <View style={styles.modalOverlay} />
       </TouchableWithoutFeedback>
@@ -131,6 +159,9 @@ const BetModal = ({
             <Tab.Screen name="Singles" component={FirstTab} />
             <Tab.Screen name="Parlay" component={SecondTab} />
           </Tab.Navigator>
+          <TouchableOpacity onPress={onClose}>
+            <Text>Close this modal</Text>
+          </TouchableOpacity>
           {/* <PrimaryButton text="CONFIRM BET" /> */}
           {/* <TouchableOpacity onPress={onClose} style={styles.closeButton}>
             <Text style={styles.closeText}>Close</Text>
@@ -181,6 +212,7 @@ const styles = StyleSheet.create({
   tabContent: {
     flex: 1,
     width: "100%",
+    height: 300,
     flexDirection: "column",
     justifyContent: "flex-start",
     // alignItems: "center",
@@ -204,4 +236,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BetModal;
+export default BetSlipModal;

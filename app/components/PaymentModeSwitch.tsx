@@ -1,18 +1,28 @@
 import { LinearGradient } from "expo-linear-gradient";
-import { useState } from "react";
-import { Image, StyleSheet, Switch, Text, View } from "react-native";
+import { Image, StyleSheet, Switch, View } from "react-native";
 import { Typography } from "./Typography";
 
-const betModeIcon1 = require("../../assets/images/crypto.png");
-const betModeIcon2 = require("../../assets/images/fiat.png");
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import { toggleCurrency } from "../store/currencySlice";
+
+const iconCoin = require("../../assets/images/coin.png");
+const iconCash = require("../../assets/images/cash.png");
 
 const PaymentModeSwitch: React.FC = () => {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  const dispatch = useDispatch();
+  const selectedCurrency = useSelector(
+    (state: RootState) => state.currency.selectedCurrency
+  );
+  const isCash = selectedCurrency == "Cash";
+
+  const toggleSwitch = () => {
+    dispatch(toggleCurrency());
+  };
 
   return (
     <View style={styles.balanceContainer}>
-      {isEnabled ? (
+      {!isCash ? (
         <LinearGradient
           start={{ x: 0, y: 1 }}
           end={{ x: 1, y: 1 }}
@@ -35,18 +45,16 @@ const PaymentModeSwitch: React.FC = () => {
           alignItems: "center",
         }}
       >
-        <Image
-          source={isEnabled ? betModeIcon1 : betModeIcon2}
-          style={styles.tokenIcon}
-        />
-        <Typography headerFont={true} size="xl">12,000,000</Typography>
-        {/* <Text style={styles.balanceText}></Text> */}
+        <Image source={isCash ? iconCash : iconCoin} style={styles.tokenIcon} />
+        <Typography headerFont size="xl">
+          12,000,000
+        </Typography>
       </View>
       <Switch
         trackColor={{ false: "#767577", true: "#ff0080" }}
-        thumbColor={isEnabled ? "#fff" : "#f4f3f4"}
+        thumbColor={isCash ? "#fff" : "#f4f3f4"}
         onValueChange={toggleSwitch}
-        value={isEnabled}
+        value={isCash}
       />
     </View>
   );

@@ -3,7 +3,6 @@ import {
   View,
   FlatList,
   StyleSheet,
-  Text,
   TouchableOpacity,
   TextInput,
   ScrollView,
@@ -12,7 +11,7 @@ import {
 import MatchCard from "../components/MathCard";
 import { Ionicons } from "@expo/vector-icons";
 import PaymentModeSwitch from "../components/PaymentModeSwitch";
-import BetModal from "../modals/BetModal";
+import BetModal from "../modals/BetSlipModal";
 import { Typography } from "../components/Typography";
 import PrimaryButton from "../components/buttons/PrimaryButton";
 
@@ -31,11 +30,7 @@ const sportsData = [
     totalUnder: "U 234.5 -110",
     endTime: "Ends at: 8:00 PM EST",
   },
-  // Add more teams here...
 ];
-// sportsData.push({ ...sportsData[0], id: "2" });
-// sportsData.push({ ...sportsData[0], id: "3" });
-// sportsData.push({ ...sportsData[0], id: "4" });
 
 const sportsCategories = [
   {
@@ -101,7 +96,7 @@ export default function SportsScreen() {
         </View>
       </View>
 
-      <ScrollView style={{ flexGrow: 1, paddingBottom: 60 }}>
+      <ScrollView style={{ flexGrow: 1 }}>
         {/* Balance & Toggle Section */}
         <PaymentModeSwitch />
 
@@ -132,8 +127,9 @@ export default function SportsScreen() {
                   resizeMode="contain"
                 />
               </TouchableOpacity>
-              {/* <Text style={styles.categoryText}>{item.name}</Text> */}
-              <Typography size="sm" weight="medium">{item.name}</Typography>
+              <Typography size="sm" weight="medium">
+                {item.name}
+              </Typography>
             </View>
           )}
         />
@@ -155,24 +151,23 @@ export default function SportsScreen() {
               POPULAR
             </Typography>
           </View>
-          {/* <FlatList
-            // style={{ padding: 16 }}
-            data={sportsData}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <MatchCard item={item} />}
-          /> */}
+
           <MatchCard item={sportsData[0]} />
           <MatchCard item={sportsData[0]} />
           <MatchCard item={sportsData[0]} />
         </View>
       </ScrollView>
 
-      <View style={{ padding: 16 }}>
-        <PrimaryButton
-          text="Open Bet Slip (1)"
-          onPress={showModal}
-          // style={{ marginTop: 60 }}
-        />
+      <View
+        style={{
+          padding: 16,
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 0,
+        }}
+      >
+        <PrimaryButton text="Open Bet Slip (1)" onPress={showModal} />
       </View>
 
       <BetModal visible={modalVisible} onClose={() => setModalVisible(false)} />
@@ -288,6 +283,7 @@ const styles = StyleSheet.create({
     // padding: 16,
     marginHorizontal: 16,
     borderRadius: 10,
+    marginBottom: 60,
   },
   matchCardMeta: {
     display: "flex",
