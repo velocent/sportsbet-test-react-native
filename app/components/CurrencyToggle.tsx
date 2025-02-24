@@ -9,7 +9,7 @@ import { toggleCurrency } from "../store/currencySlice";
 const iconCoin = require("../../assets/images/coin.png");
 const iconCash = require("../../assets/images/cash.png");
 
-const PaymentModeSwitch: React.FC = () => {
+const CurrencyToggle: React.FC = () => {
   const dispatch = useDispatch();
   const selectedCurrency = useSelector(
     (state: RootState) => state.currency.selectedCurrency
@@ -26,14 +26,14 @@ const PaymentModeSwitch: React.FC = () => {
         <LinearGradient
           start={{ x: 0, y: 1 }}
           end={{ x: 1, y: 1 }}
-          colors={["rgba(240, 46, 149, 0.4)", "rgba(240, 46, 149, 0)"]}
+          colors={["rgba(240, 46, 149, 0.2)", "rgba(240, 46, 149, 0)"]}
           style={styles.balanceBackground}
         />
       ) : (
         <LinearGradient
-          start={{ x: 0, y: 1 }}
-          end={{ x: 1, y: 1 }}
-          colors={["rgba(21, 197, 74, 0.4)", "rgba(21, 197, 74, 0.1)"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 0, y: 1 }}
+          colors={["rgba(21, 197, 74, 0.1)", "rgba(21, 197, 74, 0.025)"]}
           style={styles.balanceBackground}
         />
       )}
@@ -51,8 +51,8 @@ const PaymentModeSwitch: React.FC = () => {
         </Typography>
       </View>
       <Switch
-        trackColor={{ false: "#767577", true: "#ff0080" }}
-        thumbColor={isCash ? "#fff" : "#f4f3f4"}
+        trackColor={{ true: "#15C54A", false: "#F02E95" }}
+        thumbColor={"#fff"}
         onValueChange={toggleSwitch}
         value={isCash}
       />
@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    // marginBottom: 16,
     padding: 16,
   },
   balanceContainer: {
@@ -100,4 +99,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PaymentModeSwitch;
+export default CurrencyToggle;

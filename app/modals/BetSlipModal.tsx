@@ -10,7 +10,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import PaymentModeSwitch from "../components/PaymentModeSwitch";
+import PaymentModeSwitch from "../components/CurrencyToggle";
 import PrimaryButton from "../components/buttons/PrimaryButton";
 import BetItemSingle from "../components/BetItemSingle";
 import BaseModal from "./BaseModal";

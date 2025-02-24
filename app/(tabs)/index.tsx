@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import MatchCard from "../components/MathCard";
 import { Ionicons } from "@expo/vector-icons";
-import PaymentModeSwitch from "../components/PaymentModeSwitch";
+import PaymentModeSwitch from "../components/CurrencyToggle";
 import BetModal from "../modals/BetSlipModal";
 import { Typography } from "../components/Typography";
 import PrimaryButton from "../components/buttons/PrimaryButton";
