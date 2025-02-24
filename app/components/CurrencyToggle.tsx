@@ -47,7 +47,7 @@ const CurrencyToggle: React.FC = () => {
       >
         <Image source={isCash ? iconCash : iconCoin} style={styles.tokenIcon} />
         <Typography headerFont size="xl">
-          12,000,000
+          {isCash ? "$12,927.00" : "12,000,000"}
         </Typography>
       </View>
       <Switch
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
   tokenIcon: {
     width: 36,
     height: 36,
+    marginRight: 8,
   },
   balanceText: {
     color: "#fff",

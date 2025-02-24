@@ -1,111 +1,17 @@
-import React from "react";
-import {
-  Modal,
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  FlatList,
-  ScrollView,
-  TouchableWithoutFeedback,
-} from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import PaymentModeSwitch from "../components/CurrencyToggle";
 import PrimaryButton from "../components/buttons/PrimaryButton";
-import BetItemSingle from "../components/BetItemSingle";
 import BaseModal from "./BaseModal";
 import { Typography } from "../components/Typography";
+import SinglesTab from "../components/betslip/SinglesTab";
+import ParlayTab from "../components/betslip/ParlayTab";
+import CopyConfirmView from "../components/betslip/CopyConfirmView";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import { toggleCurrency } from "../store/currencySlice";
 
 const Tab = createMaterialTopTabNavigator();
-
-const FirstTab = () => (
-  // const changeAmount = (id:number) => () => {}
-  <View style={styles.tabContent}>
-    <ScrollView>
-      <PaymentModeSwitch />
-      <View style={{ padding: 16 }}>
-        <BetItemSingle />
-        <BetItemSingle />
-
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            gap: 8,
-            marginBottom: 16,
-          }}
-        >
-          {[50, 100, 200, 0].map((item, index) => (
-            <TouchableOpacity
-              key={index}
-              style={{
-                backgroundColor: "rgba(255,255,255,0.1)",
-                flex: 1,
-                borderRadius: 4,
-                padding: 12,
-              }}
-              activeOpacity={0.7}
-              onPress={() => {}}
-            >
-              <Text style={{ color: "#fff", textAlign: "center" }}>
-                {item == 0 ? "Custom" : "$" + item}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-
-        <View
-          style={{
-            marginBottom: 8,
-            justifyContent: "space-between",
-            flexDirection: "row",
-          }}
-        >
-          <Text style={{ fontSize: 16, color: "#fff" }}>Total bet</Text>
-          <Text style={{ fontSize: 16, color: "#fff", fontWeight: 500 }}>
-            $200
-          </Text>
-        </View>
-
-        <View
-          style={{
-            marginBottom: 8,
-            justifyContent: "space-between",
-            flexDirection: "row",
-          }}
-        >
-          <Text style={{ fontSize: 16, color: "#fff" }}>Potential win</Text>
-          <Text style={{ fontSize: 16, color: "#15C249" }}>$360</Text>
-        </View>
-
-        <PrimaryButton text="CONFIRM BET" />
-      </View>
-    </ScrollView>
-
-    {/* <FlatList
-      style={{ padding: 16 }}
-      data={[1, 2]}
-      renderItem={() => <BetItemSingle />}
-    /> */}
-
-    {/* <View style={{ padding: 16 }}>
-    </View> */}
-
-    {/* <View style={{ padding: 16 }}>
-      <BetItemSingle />
-      <BetItemSingle />
-
-      <PrimaryButton text="CONFIRM BET" />
-    </View> */}
-  </View>
-);
-
-const SecondTab = () => (
-  <View style={styles.tabContent}>
-    <PaymentModeSwitch />
-    <Text style={styles.text}>Second Tab Content</Text>
-  </View>
-);
 
 const BetSlipModal = ({
   visible,
@@ -114,8 +20,26 @@ const BetSlipModal = ({
   visible: boolean;
   onClose: () => void;
 }) => {
+  const dispatch = useDispatch();
+
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  const selectedCurrency = useSelector(
+    (state: RootState) => state.currency.selectedCurrency
+  );
+
+  const handleClose = () => {
+    setShowConfirm(false);
+    onClose();
+  };
+
+  const handleCopyBet = () => {
+    setShowConfirm(false);
+    dispatch(toggleCurrency());
+  };
+
   return (
-    <BaseModal visible={visible} onClose={onClose}>
+    <BaseModal visible={visible} onClose={handleClose}>
       <Typography size={20} style={{ textAlign: "center" }}>
         BETSLIP (2)
       </Typography>
@@ -125,50 +49,26 @@ const BetSlipModal = ({
           tabBarStyle: { backgroundColor: "#1B1E23" },
           tabBarActiveTintColor: "#fff",
           tabBarIndicatorStyle: { backgroundColor: "#fff" },
+          sceneStyle: { backgroundColor: "transparent" },
         }}
+        style={{ minHeight: 400, height: "auto" }}
       >
-        <Tab.Screen name="Singles" component={FirstTab} />
-        <Tab.Screen name="Parlay" component={SecondTab} />
+        <Tab.Screen name="Singles" component={SinglesTab} />
+        <Tab.Screen name="Parlay" component={ParlayTab} />
       </Tab.Navigator>
-      <Typography size={20} style={{ textAlign: "center" }}>
-        BETSLIP (2)
-      </Typography>
-    </BaseModal>
-  );
-  return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="slide"
-      onRequestClose={onClose}
-    >
-      <TouchableWithoutFeedback onPress={onClose}>
-        <View style={styles.modalOverlay} />
-      </TouchableWithoutFeedback>
 
-      <View style={styles.overlay}>
-        <View style={styles.modalContainer}>
-          <Text style={styles.modalTitle}>BETSLIP (2)</Text>
-          <Tab.Navigator
-            screenOptions={{
-              tabBarStyle: { backgroundColor: "#1e1efe" },
-              tabBarActiveTintColor: "#fff",
-              tabBarIndicatorStyle: { backgroundColor: "#fff" },
-            }}
-          >
-            <Tab.Screen name="Singles" component={FirstTab} />
-            <Tab.Screen name="Parlay" component={SecondTab} />
-          </Tab.Navigator>
-          <TouchableOpacity onPress={onClose}>
-            <Text>Close this modal</Text>
-          </TouchableOpacity>
-          {/* <PrimaryButton text="CONFIRM BET" /> */}
-          {/* <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-            <Text style={styles.closeText}>Close</Text>
-          </TouchableOpacity> */}
+      <PrimaryButton text="confirm" onPress={() => setShowConfirm(true)} />
+
+      <Typography style={{ textAlign: "center", opacity: 0.6, marginTop: 8 }}>
+        Max bet amount: $10.000
+      </Typography>
+
+      {showConfirm && (
+        <View style={{ padding: 16 }}>
+          <CopyConfirmView onNo={handleClose} onYes={handleCopyBet} />
         </View>
-      </View>
-    </Modal>
+      )}
+    </BaseModal>
   );
 };
 

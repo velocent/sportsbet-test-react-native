@@ -1,12 +1,17 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Typography } from "./Typography";
 
-const BetItemSingle: React.FC<{}> = () => {
+type BetItemProps = {
+  amount: number;
+};
+
+const BetItemSingle: React.FC<BetItemProps> = ({ amount }: BetItemProps) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
         style={{
-          backgroundColor: "#555",
+          backgroundColor: "rgba(255,255,255,0.2)",
           borderTopLeftRadius: 10,
           borderBottomLeftRadius: 10,
           padding: 8,
@@ -27,17 +32,9 @@ const BetItemSingle: React.FC<{}> = () => {
           }}
         >
           <View>
-            <Text
-              style={{
-                fontWeight: 500,
-                fontSize: 16,
-                color: "#fff",
-                marginBottom: 12,
-								fontFamily:'Inter'
-              }}
-            >
+            <Typography size="lg" weight="medium" style={{ marginBottom: 12 }}>
               Warrios vs Bucks
-            </Text>
+            </Typography>
             <View
               style={{
                 display: "flex",
@@ -49,15 +46,15 @@ const BetItemSingle: React.FC<{}> = () => {
                 source={require("../../assets/images/team_kings.png")}
                 style={{ width: 24, height: 24, marginRight: 8 }}
               />
-              <Text style={{ fontWeight: 700, fontSize: 16, color: "#fff",fontFamily:'Inter' }}>
+              <Typography weight="bold" size="lg">
                 Warriors -3.5
-              </Text>
+              </Typography>
             </View>
           </View>
           <View>
-            <Text style={{ fontSize: 12, color: "rgba(255,255,255,0.8)",fontFamily:'Inter' }}>
+            <Typography style={{ color: "rgba(255,255,255,0.8)" }} size="sm">
               End at: 8:00 PM EST
-            </Text>
+            </Typography>
           </View>
         </View>
         <View
@@ -67,16 +64,9 @@ const BetItemSingle: React.FC<{}> = () => {
             justifyContent: "space-between",
           }}
         >
-          <Text
-            style={{
-              fontSize: 16,
-              lineHeight: 18,
-              fontWeight: 500,
-              color: "#fff",
-            }}
-          >
+          <Typography size="lg" weight="medium">
             -120
-          </Text>
+          </Typography>
           <View
             style={{
               backgroundColor: "#444",
@@ -86,16 +76,9 @@ const BetItemSingle: React.FC<{}> = () => {
               minWidth: 100,
             }}
           >
-            <Text
-              style={{
-                fontSize: 14,
-                fontWeight: 600,
-                color: "#fff",
-                textAlign: "right",
-              }}
-            >
-              $100
-            </Text>
+            <Typography weight="semibold" style={{ textAlign: "right" }}>
+              {amount}
+            </Typography>
           </View>
         </View>
       </View>
