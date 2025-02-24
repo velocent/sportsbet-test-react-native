@@ -6,6 +6,20 @@ import { useState } from "react";
 
 const SinglesTab = () => {
   const [amounts, setAmounts] = useState([0, 0]);
+  const [enableEdit, setEnableEdit] = useState(false);
+
+  const handleSetBetAmountMode = (amount: number) => () => {
+    setEnableEdit(amount === 0);
+    if (amount != 0) {
+      setAmounts([amount, amount]);
+    }
+  };
+
+  const handleChangeAmount = (i: number, amt: number) => {
+    const newAmount = [...amounts];
+    newAmount[i] = amt;
+    setAmounts(newAmount);
+  };
 
   return (
     <ScrollView>
@@ -13,7 +27,12 @@ const SinglesTab = () => {
 
       <View style={{ padding: 16 }}>
         {amounts.map((v, i) => (
-          <BetItem key={i} amount={v} />
+          <BetItem
+            key={i}
+            amount={v}
+            enableEdit={enableEdit}
+            onValueChange={(amt) => handleChangeAmount(i, amt)}
+          />
         ))}
 
         <View
@@ -34,7 +53,7 @@ const SinglesTab = () => {
                 padding: 12,
               }}
               activeOpacity={0.7}
-              onPress={() => {}}
+              onPress={handleSetBetAmountMode(item)}
             >
               <Typography style={{ color: "#fff", textAlign: "center" }}>
                 {item == 0 ? "Custom" : "$" + item}

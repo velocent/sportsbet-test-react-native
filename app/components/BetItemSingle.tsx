@@ -1,12 +1,24 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Typography } from "./Typography";
 
 type BetItemProps = {
   amount: number;
+  enableEdit: boolean;
+  onValueChange: (v: number) => void;
 };
 
-const BetItemSingle: React.FC<BetItemProps> = ({ amount }: BetItemProps) => {
+const BetItemSingle: React.FC<BetItemProps> = ({
+  amount,
+  enableEdit,
+  onValueChange,
+}: BetItemProps) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -76,9 +88,14 @@ const BetItemSingle: React.FC<BetItemProps> = ({ amount }: BetItemProps) => {
               minWidth: 100,
             }}
           >
-            <Typography weight="semibold" style={{ textAlign: "right" }}>
-              {amount}
-            </Typography>
+            <TextInput
+              placeholder="100"
+              placeholderTextColor="#aaa"
+              style={styles.amountInput}
+              editable={enableEdit}
+              value={amount + ""}
+              onChangeText={(txt) => onValueChange(Number(txt))}
+            />
           </View>
         </View>
       </View>
@@ -101,6 +118,14 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     paddingVertical: 12,
     paddingHorizontal: 16,
+  },
+  amountInput: {
+    // backgroundColor: "blue",
+    padding: 0,
+    margin: 0,
+    color: "#fff",
+    textAlign: "right",
+    fontFamily: "Inter_600SemiBold",
   },
 });
 
