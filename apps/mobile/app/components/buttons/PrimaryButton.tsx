@@ -1,10 +1,18 @@
-import { StyleSheet, TouchableOpacity, ViewStyle } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  ViewStyle,
+  ActivityIndicator,
+} from "react-native";
 import { Typography } from "../Typography";
 
 type PrimaryButtonProps = {
   text: string;
   style?: ViewStyle;
   variant?: "brand" | "coin" | "cash" | "secondary";
+  disabled?: boolean;
+  loading?: boolean;
+  icon?: React.ReactNode;
   onPress?: () => void;
 };
 const PrimaryButton: React.FC<PrimaryButtonProps> = ({
@@ -12,6 +20,9 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   style,
   onPress,
   variant = "brand",
+  disabled = false,
+  loading = false,
+  icon,
   ...props
 }: PrimaryButtonProps) => {
   const handlePress = () => {
@@ -48,11 +59,19 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
 
   return (
     <TouchableOpacity
-      style={[styles.button, style, getButtonBg()]}
+      style={[
+        styles.button,
+        style,
+        getButtonBg(),
+        { opacity: disabled ? 0.4 : 1 },
+      ]}
       activeOpacity={0.8}
       onPress={handlePress}
+      disabled={disabled}
       {...props}
     >
+      {loading && <ActivityIndicator color={"#000"} />}
+      {icon}
       <Typography style={{ ...styles.text, ...getTextColor() }}>
         {text}
       </Typography>
@@ -68,6 +87,10 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 8,
     borderRadius: 4,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
     // margin: 16,
   },
   buttonBgBrand: {

@@ -1,6 +1,8 @@
 import { Environment, Network, RecordSource, Store } from "relay-runtime";
+// @ts-ignore
+import { GRAPHQL_URL } from "@env";
 
-const API_URL = "http://172.16.101.118:5000/graphql";
+// const API_URL = "http://127.0.0.1:5000/graphql";
 
 const fetchQuery = async (request: any, variables: any) => {
   const headers = {
@@ -11,7 +13,7 @@ const fetchQuery = async (request: any, variables: any) => {
     variables,
   });
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(GRAPHQL_URL, {
       method: "POST",
       headers,
       body,
@@ -25,16 +27,7 @@ const fetchQuery = async (request: any, variables: any) => {
 
     return data;
   } catch (err) {
-    console.log(API_URL);
-    throw err;
-    console.log("err on fetch graphql", err);
-    console.log('------')
-    console.log(request.text)
-    console.log('------')
-    console.log(variables)
-
-    console.log('------')
-    console.log(body)
+    console.error(err)
     throw err;
   }
 };

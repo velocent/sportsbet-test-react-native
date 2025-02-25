@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import PrimaryButton from "../components/buttons/PrimaryButton";
@@ -12,6 +12,7 @@ import { RootState } from "../store/store";
 import { toggleCurrency } from "../store/currencySlice";
 import { placeBet } from "../graphql/mutations/placeBetMutation";
 import { getUserBets } from "../graphql/queries/getUserBetsQuery";
+import { Ionicons } from "@expo/vector-icons";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -25,6 +26,13 @@ const BetSlipModal = ({
   const dispatch = useDispatch();
 
   const [showConfirm, setShowConfirm] = useState(false);
+  // const [enableConfirm, setEnableConfirm] = useState(true);
+  // const [isLoading, setIsLoading] = useState(false);
+  const [confirmState, setConfirmState] = useState<0 | 1 | 2>(0); // normal | confirming | confirmed
+  const isLoading = useMemo(() => confirmState == 1, [confirmState]);
+  const isDisabled = useMemo(() => confirmState == 1, [confirmState]);
+  const isConfirmed = useMemo(() => confirmState == 2, [confirmState]);
+  const confirmButtonText = ["confirm", "confirming", "confirmed"];
 
   const selectedCurrency = useSelector(
     (state: RootState) => state.currency.selectedCurrency
@@ -32,15 +40,19 @@ const BetSlipModal = ({
 
   const handleClose = () => {
     setShowConfirm(false);
+    setConfirmState(0);
     onClose();
   };
 
   const handleCopyBet = () => {
     setShowConfirm(false);
+    setConfirmState(0);
     dispatch(toggleCurrency());
   };
 
   const handleConfirm = async () => {
+    setConfirmState(1);
+
     const userId = "999";
     const outcomes = "outcome";
     const wagerAmount = 100;
@@ -52,10 +64,12 @@ const BetSlipModal = ({
       selectedCurrency,
       () => {
         console.log("completed placebet");
+        setConfirmState(2);
         setShowConfirm(true);
       },
       (e) => {
         console.log("error on placebet", e);
+        setConfirmState(0);
       }
     );
 
@@ -82,7 +96,13 @@ const BetSlipModal = ({
       </Tab.Navigator>
 
       <View style={{ paddingHorizontal: 16 }}>
-        <PrimaryButton text="confirm" onPress={handleConfirm} />
+        <PrimaryButton
+          text={confirmButtonText[confirmState]}
+          onPress={handleConfirm}
+          loading={isLoading}
+          disabled={isDisabled}
+          icon={isConfirmed && <Ionicons name="checkmark-sharp" size={16} />}
+        />
       </View>
 
       <Typography style={{ textAlign: "center", opacity: 0.6, marginTop: 8 }}>

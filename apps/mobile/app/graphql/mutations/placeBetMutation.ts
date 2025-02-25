@@ -39,7 +39,6 @@ export const placeBet = (
     onError,
     updater: (store) => {
       const payload = store.getRootField("placeBet");
-      console.log(payload)
       if (!payload) return;
 
       const root = store.getRoot();
