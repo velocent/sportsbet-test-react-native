@@ -1,5 +1,5 @@
 {
-  "name": "stickersmash",
+  "name": "sportsbet-mobile",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
@@ -21,6 +21,7 @@
     "@react-navigation/material-top-tabs": "^7.1.0",
     "@react-navigation/native": "^7.0.14",
     "@reduxjs/toolkit": "^2.6.0",
+    "babel-plugin-relay": "^18.2.0",
     "expo": "~52.0.37",
     "expo-blur": "~14.0.3",
     "expo-constants": "~17.0.7",
@@ -34,6 +35,8 @@
     "expo-symbols": "~0.2.2",
     "expo-system-ui": "~4.0.8",
     "expo-web-browser": "~14.0.2",
+    "graphql": "^16.10.0",
+    "graphql-request": "^7.1.2",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-native": "0.76.7",
@@ -43,7 +46,9 @@
     "react-native-screens": "~4.4.0",
     "react-native-web": "~0.19.13",
     "react-native-webview": "13.12.5",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "react-relay": "^18.2.0",
+    "relay-runtime": "^18.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
