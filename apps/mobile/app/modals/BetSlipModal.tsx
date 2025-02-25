@@ -78,8 +78,8 @@ const BetSlipModal = ({
 
   return (
     <BaseModal visible={visible} onClose={handleClose}>
-      <Typography size={20} style={{ textAlign: "center" }}>
-        BETSLIP (2)
+      <Typography size={20} headerFont style={{ textAlign: "center" }}>
+        betslip (2)
       </Typography>
 
       <Tab.Navigator
