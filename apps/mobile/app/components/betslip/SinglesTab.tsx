@@ -1,7 +1,7 @@
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { Typography } from "../Typography";
 import CurrencyToggle from "../CurrencyToggle";
-import BetItem from "../BetItemSingle";
+import BetItem from "../BetItem";
 import { useState } from "react";
 
 const SinglesTab = () => {

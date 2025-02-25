@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import PrimaryButton from "../components/buttons/PrimaryButton";
 import BaseModal from "./BaseModal";
@@ -26,8 +26,6 @@ const BetSlipModal = ({
   const dispatch = useDispatch();
 
   const [showConfirm, setShowConfirm] = useState(false);
-  // const [enableConfirm, setEnableConfirm] = useState(true);
-  // const [isLoading, setIsLoading] = useState(false);
   const [confirmState, setConfirmState] = useState<0 | 1 | 2>(0); // normal | confirming | confirmed
   const isLoading = useMemo(() => confirmState == 1, [confirmState]);
   const isDisabled = useMemo(() => confirmState == 1, [confirmState]);
@@ -117,69 +115,5 @@ const BetSlipModal = ({
     </BaseModal>
   );
 };
-
-const styles = StyleSheet.create({
-  modalOverlay: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: "rgba(0,0,0,0.5)",
-  },
-  overlay: {
-    flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  modalContainer: {
-    width: "100%",
-    backgroundColor: "#1e1e1e",
-    // borderRadius: 10,
-    // borderTopEndRadius: 10,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    paddingVertical: 20,
-    // padding: 20,
-    // bottom: 0,
-    // position: "absolute",
-    minHeight: "70%",
-    height: "auto",
-  },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#fff",
-    textAlign: "center",
-    marginBottom: 10,
-    backgroundColor: "red",
-  },
-  tabContent: {
-    flex: 1,
-    width: "100%",
-    height: 300,
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    // alignItems: "center",
-    backgroundColor: "#1e1e1e",
-  },
-  text: {
-    color: "#fff",
-    fontSize: 16,
-  },
-  closeButton: {
-    backgroundColor: "#ff0044",
-    padding: 10,
-    borderRadius: 8,
-    marginTop: 10,
-    alignItems: "center",
-  },
-  closeText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-});
 
 export default BetSlipModal;

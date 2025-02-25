@@ -34,12 +34,7 @@ const BaseModal = ({
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         style={styles.scrollBox}
-        // onLayout={(event) => setContentHeight(event.nativeEvent.layout.height)}
       >
-        {/* Drag handle */}
-        {/* <View style={styles.dragHandle} /> */}
-
-        {/* Modal Content */}
         {children}
       </ScrollView>
     </Modal>
