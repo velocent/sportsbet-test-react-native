@@ -55,6 +55,8 @@ const BetSlipModal = ({
     const outcomes = "outcome";
     const wagerAmount = 100;
 
+    console.log(process.env.EXPO_PUBLIC_GRAPHQL_URL)
+
     placeBet(
       userId,
       outcomes,

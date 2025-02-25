@@ -53,3 +53,5 @@ const styles = StyleSheet.create({
     color: "#fff", // Default color
   },
 });
+
+export default Typography;

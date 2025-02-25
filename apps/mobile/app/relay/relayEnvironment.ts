@@ -1,8 +1,6 @@
 import { Environment, Network, RecordSource, Store } from "relay-runtime";
-// @ts-ignore
-import { GRAPHQL_URL } from "@env";
 
-// const API_URL = "http://127.0.0.1:5000/graphql";
+const GRAPHQL_URL = process.env.EXPO_PUBLIC_GRAPHQL_URL || ""
 
 const fetchQuery = async (request: any, variables: any) => {
   const headers = {
