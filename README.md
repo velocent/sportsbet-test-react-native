@@ -1,50 +1,79 @@
-# Welcome to your Expo app 👋
+# PropX Take-Home Assessment
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
 
-## Get started
+This project was developed as a proof of skills, not for production use. The goal was to showcase clean architecture, maintainability, and backend integration rather than production-level robustness. The implementation covers a multi-currency betting flow based on the provided Figma design.
 
-1. Install dependencies
+## Tech Stack
 
-   ```bash
-   npm install
-   ```
+- Frontend: React Native (Expo), Relay
 
-2. Start the app
+- Backend: Node.js, Express, GraphQL API
 
-   ```bash
-    npx expo start
-   ```
+- Database: MySQL
 
-In the output, you'll find options to open the app in a
+- Infrastructure: Terraform (deploys backend to Docker)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Database Choice & Assumptions
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+MySQL was chosen for its structured data handling, transactional integrity, and scalability. Assumptions made:
 
-## Get a fresh project
+Bets follow a fixed structure (user ID, outcomes, wager amount, currency, timestamp).
 
-When you're ready, run:
+Users should be able to retrieve their bets efficiently.
 
-```bash
-npm run reset-project
+### Schema Definition
+```sql
+CREATE TABLE IF NOT EXISTS bets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    userId VARCHAR(50) NOT NULL,
+    outcomes VARCHAR(50) NOT NULL,
+    wagerAmount DECIMAL(10,2) NOT NULL,
+    currency ENUM('Coin', 'Cash') NOT NULL,
+    status ENUM('pending', 'confirmed', 'cancelled') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Running the Project
 
-## Learn more
+### Prerequisites
 
-To learn more about developing your project with Expo, look at the following resources:
+- Node.js & npm (Frontend dependencies)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- Docker & Terraform (Backend deployment)
 
-## Join the community
+### Setup Instructions
 
-Join our community of developers creating universal apps.
+#### 1. Clone the Repository
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+git clone https://github.com/velocent/sportsbet-test-react-native.git
+```
+
+#### 2. Deploy Backend with Terraform
+
+```bash
+cd infra
+terraform init
+terraform apply
+```
+
+#### 3. Run Frontend Manually
+
+```bash
+cd apps/mobile
+cp .env.example .env
+npm i
+npm start
+```
+
+### Future Enhancements
+
+- Add authentication & authorization.
+
+- Improve error handling and logging.
+
+- Optimize GraphQL queries for better performance.
+
+This project was built to demonstrate technical skills, not as a production-ready solution. Let me know if you have any questions!
