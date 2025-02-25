@@ -1,9 +1,10 @@
-import { Text, View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Typography } from "../components/Typography";
 
-export default function AboutScreen() {
+export default function FeaturedScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>About screen</Text>
+      <Typography>Featured screen</Typography>
     </View>
   );
 }
@@ -14,8 +15,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#25292e",
     justifyContent: "center",
     alignItems: "center",
-  },
-  text: {
-    color: "#fff",
   },
 });

@@ -80,8 +80,8 @@ export default function SportsScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Typography headerFont={true} size="md">
-          SPORTS
+        <Typography headerFont={true} size={28}>
+          sports
         </Typography>
         <View style={styles.iconsContainer}>
           <TouchableOpacity style={styles.iconButton}>
@@ -148,7 +148,7 @@ export default function SportsScreen() {
                 borderRadius: 4,
               }}
             >
-              POPULAR
+              popular
             </Typography>
           </View>
 
@@ -167,7 +167,7 @@ export default function SportsScreen() {
           bottom: 0,
         }}
       >
-        <PrimaryButton text="Open Bet Slip (1)" onPress={showModal} />
+        <PrimaryButton text="open bet slip (1)" onPress={showModal} />
       </View>
 
       <BetModal visible={modalVisible} onClose={() => setModalVisible(false)} />

@@ -24,7 +24,7 @@ export default function TabLayout() {
           title: "Sports",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? "home-sharp" : "home-outline"}
+              name={focused ? "american-football" : "american-football-outline"}
               color={color}
               size={24}
             />
@@ -32,33 +32,31 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="about"
+        name="featured"
         options={{
-          title: "About",
+          title: "Featured",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={
-                focused ? "information-circle" : "information-circle-outline"
-              }
+              name={focused ? "ribbon" : "ribbon-outline"}
               color={color}
               size={24}
             />
           ),
         }}
       />
-      {/* <Tabs.Screen
-        name="sports"
+      <Tabs.Screen
+        name="mybets"
         options={{
-          title: "Sports",
+          title: "My Bets",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? "home-sharp" : "home-outline"}
+              name={focused ? "list" : "list-outline"}
               color={color}
               size={24}
             />
           ),
         }}
-      /> */}
+      />
     </Tabs>
   );
 }
