@@ -10,6 +10,8 @@ import CopyConfirmView from "../components/betslip/CopyConfirmView";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { toggleCurrency } from "../store/currencySlice";
+import { placeBet } from "../graphql/mutations/placeBetMutation";
+import { getUserBets } from "../graphql/queries/getUserBetsQuery";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -38,6 +40,28 @@ const BetSlipModal = ({
     dispatch(toggleCurrency());
   };
 
+  const handleConfirm = async () => {
+    const userId = "999";
+    const outcomes = "outcome";
+    const wagerAmount = 100;
+
+    placeBet(
+      userId,
+      outcomes,
+      wagerAmount,
+      selectedCurrency,
+      () => {
+        console.log("completed placebet");
+        setShowConfirm(true);
+      },
+      (e) => {
+        console.log("error on placebet", e);
+      }
+    );
+
+    // getUserBets(userId).then((v) => console.log(v));
+  };
+
   return (
     <BaseModal visible={visible} onClose={handleClose}>
       <Typography size={20} style={{ textAlign: "center" }}>
@@ -57,7 +81,9 @@ const BetSlipModal = ({
         <Tab.Screen name="Parlay" component={ParlayTab} />
       </Tab.Navigator>
 
-      <PrimaryButton text="confirm" onPress={() => setShowConfirm(true)} />
+      <View style={{ paddingHorizontal: 16 }}>
+        <PrimaryButton text="confirm" onPress={handleConfirm} />
+      </View>
 
       <Typography style={{ textAlign: "center", opacity: 0.6, marginTop: 8 }}>
         Max bet amount: $10.000

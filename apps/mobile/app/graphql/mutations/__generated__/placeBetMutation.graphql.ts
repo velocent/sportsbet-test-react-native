@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<45b696f29001ac7e90d3b56fbf0f3496>>
+ * @generated SignedSource<<051e9b1a3147bffb56cca5ea4f9e8876>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,9 +18,9 @@ export type placeBetMutation$variables = {
 export type placeBetMutation$data = {
   readonly placeBet: {
     readonly currency: string | null | undefined;
-    readonly id: number | null | undefined;
     readonly outcomes: string | null | undefined;
     readonly status: string | null | undefined;
+    readonly uid: number | null | undefined;
     readonly userId: string | null | undefined;
     readonly wagerAmount: number | null | undefined;
   } | null | undefined;
@@ -85,7 +85,7 @@ v4 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
-        "name": "id",
+        "name": "uid",
         "storageKey": null
       },
       {
@@ -155,16 +155,16 @@ return {
     "selections": (v4/*: any*/)
   },
   "params": {
-    "cacheID": "57d219187d129d07234600ec87c9d2fe",
+    "cacheID": "9783f4208bca472eda129df348c91cee",
     "id": null,
     "metadata": {},
     "name": "placeBetMutation",
     "operationKind": "mutation",
-    "text": "mutation placeBetMutation(\n  $userId: String!\n  $outcomes: String!\n  $wagerAmount: Float!\n  $currency: String!\n) {\n  placeBet(userId: $userId, outcomes: $outcomes, wagerAmount: $wagerAmount, currency: $currency) {\n    id\n    userId\n    outcomes\n    wagerAmount\n    currency\n    status\n  }\n}\n"
+    "text": "mutation placeBetMutation(\n  $userId: String!\n  $outcomes: String!\n  $wagerAmount: Float!\n  $currency: String!\n) {\n  placeBet(userId: $userId, outcomes: $outcomes, wagerAmount: $wagerAmount, currency: $currency) {\n    uid\n    userId\n    outcomes\n    wagerAmount\n    currency\n    status\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "da7658ecba682b15fa6f41dd72a91567";
+(node as any).hash = "169dac6738f770a0ec2f01909a2c9207";
 
 export default node;

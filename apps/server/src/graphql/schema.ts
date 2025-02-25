@@ -14,7 +14,7 @@ import { ResultSetHeader } from "mysql2";
 const BetType = new GraphQLObjectType({
   name: "Bet",
   fields: {
-    id: { type: GraphQLInt },
+    uid: { type: GraphQLInt },
     userId: { type: GraphQLString },
     outcomes: { type: GraphQLString },
     wagerAmount: { type: GraphQLFloat },
@@ -58,7 +58,7 @@ const Mutation = new GraphQLObjectType({
           [userId, outcomes, wagerAmount, currency]
         );
         return {
-          id: result.insertId,
+          uid: result.insertId,
           userId,
           outcomes,
           wagerAmount,

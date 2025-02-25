@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5c24c05c157188283e0738a1d62aae2b>>
+ * @generated SignedSource<<e1cafc5e9d06a84891147358017b32e2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,9 +15,9 @@ export type getUserBetsQuery$variables = {
 export type getUserBetsQuery$data = {
   readonly getUserBets: ReadonlyArray<{
     readonly currency: string | null | undefined;
-    readonly id: number | null | undefined;
     readonly outcomes: string | null | undefined;
     readonly status: string | null | undefined;
+    readonly uid: number | null | undefined;
     readonly wagerAmount: number | null | undefined;
   } | null | undefined> | null | undefined;
 };
@@ -53,7 +53,7 @@ v1 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
-        "name": "id",
+        "name": "uid",
         "storageKey": null
       },
       {
@@ -106,16 +106,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "0112fb19cbcc0d44593d57dec433b358",
+    "cacheID": "04f53ba37351f91fb0d0863d8b658e19",
     "id": null,
     "metadata": {},
     "name": "getUserBetsQuery",
     "operationKind": "query",
-    "text": "query getUserBetsQuery(\n  $userId: String!\n) {\n  getUserBets(userId: $userId) {\n    id\n    outcomes\n    wagerAmount\n    currency\n    status\n  }\n}\n"
+    "text": "query getUserBetsQuery(\n  $userId: String!\n) {\n  getUserBets(userId: $userId) {\n    uid\n    outcomes\n    wagerAmount\n    currency\n    status\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "a63b1ef4ac05ad06aed9723621cb19e8";
+(node as any).hash = "a43672609f87286345545b62a726c30d";
 
 export default node;

@@ -1,0 +1,26 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Bet {
+  uid: Int
+  userId: String
+  outcomes: String
+  wagerAmount: Float
+  currency: String
+  status: String
+}
+
+type Mutation {
+  placeBet(
+    userId: String!
+    outcomes: String!
+    wagerAmount: Float!
+    currency: String!
+  ): Bet
+}
+
+type Query {
+  getUserBets(userId: String): [Bet]
+}
